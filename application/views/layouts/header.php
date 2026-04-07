@@ -24,7 +24,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
-            <a href="<?= site_url('dashboard') ?>" class="navbar-brand fw-bold text-uppercase">Digital UMKM</a>
+            <a href="<?= site_url('#') ?>" class="navbar-brand fw-bold text-uppercase">Digital UMKM</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
@@ -87,8 +87,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= ($page == 'manager') ? 'active' : '' ?>"
-                                href="<?= site_url('manager') ?>">
+                            <a class="nav-link <?= ($page == 'approval') ? 'active' : '' ?>"
+                                href="<?= site_url('Approval') ?>">
                                 Manager
                             </a>
                         </li>

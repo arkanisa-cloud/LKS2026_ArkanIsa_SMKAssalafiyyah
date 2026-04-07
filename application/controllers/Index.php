@@ -17,15 +17,15 @@ class Index extends CI_Controller
     {
 
         if ($this->ion_auth->is_admin() || $this->ion_auth->in_group('admin')) {
-            redirect('approval');
+            redirect('dashboard/Dashboard_admin');
         } elseif ($this->ion_auth->in_group('manager')) {
-            redirect('approval');
-        } elseif ($this->ion_auth->in_group('verifer')) {
-            redirect('verifer');
+            redirect('dashboard/Dashboard_manager');
+        } elseif ($this->ion_auth->in_group('verifier')) {
+            redirect('dashboard/Dashboard_verifier');
         } elseif ($this->ion_auth->in_group('analyst')) {
-            redirect('analyst');
+            redirect('dashboard/Dashboard_analyst');
         } elseif ($this->ion_auth->in_group('applicant')) {
-            redirect('umkm_profile');
+            redirect('dashboard/Dashboard_umkm');
         } else {
             echo ('<h1>ERROR: Akun ini tidak memiliki group/hak akses<h1>');
         }

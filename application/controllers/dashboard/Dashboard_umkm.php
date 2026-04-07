@@ -9,18 +9,21 @@ class Dashboard_umkm extends CI_Controller
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group('applicant')) {
             redirect('auth/login');
         }
-        $this->load->model('dashboard_umkm_model');
-        $this->load->library(['form_validation', 'upload']);
+        $this->load->model('dashboard/dashboard_umkm_model');
+        $this->load->model('/umkm_profile_model');
     }
 
     public function index()
     {
+        $data['page'] = 'dashboard_umkm';
         $user_id = $this->ion_auth->user()->row()->id;
-        $data['profile'] = $this->dashboard_umkm_model->get_by_user_id($user_id);
+        $data['profile'] = $this->umkm_profile_model->get_by_user_id($user_id);
 
-        $this->load->view('layouts/header', $data);
-        $this->load->view('folder/view_file', $data);
-        $this->load->view('layouts/footer');
+        if ($data['profile']) {
+            $this->load->view('dashboard/dashboard_umkm_view', $data);
+        } else {
+            $this->load->view('umkm/umkm_form', $data);
+        }
     }
 
 

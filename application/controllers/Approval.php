@@ -14,7 +14,7 @@ class Approval extends CI_Controller
 
     public function index()
     {
-        $data['page'] = 'manager';
+        $data['page'] = 'approval';
         $data['verified_loan'] = $this->loan_model->get_by_status('verified');
         $data['recommended_loan'] = $this->loan_model->get_by_status('recommended');
         $data['under_review_loan'] = $this->loan_model->get_by_status('under_review');
