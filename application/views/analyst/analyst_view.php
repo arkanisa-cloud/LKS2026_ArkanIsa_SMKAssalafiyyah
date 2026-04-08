@@ -22,13 +22,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (empty($submitted_loan)): ?>
+                        <?php if (empty($submitted_financing_applications)): ?>
                             <tr>
                                 <td colspan="8" class="text-center">Data masih kosong.</td>
                             </tr>
                         <?php else: ?>
                             <?php $no = 1;
-                            foreach ($submitted_loan as $row): ?>
+                            foreach ($submitted_financing_applications as $row): ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $row->name ?></td>
@@ -41,7 +41,7 @@
                                     <td><?= $row->amount ?></td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#modalAnalyst<?= $row->loan_id ?>">Analis</button>
+                                            data-bs-target="#modalAnalyst<?= $row->financing_application_id ?>">Analis</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -51,23 +51,23 @@
             </div>
         </div>
     </div>
-    <?php if (!empty($submitted_loan)): ?>
-        <?php foreach ($submitted_loan as $row): ?>
-            <div id="modalAnalyst<?= $row->loan_id ?>" class="modal fade" tabindex="-1">
+    <?php if (!empty($submitted_financing_applications)): ?>
+        <?php foreach ($submitted_financing_applications as $row): ?>
+            <div id="modalAnalyst<?= $row->financing_application_id ?>" class="modal fade" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Analisis Peminjaman - <?= $row->name ?></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="<?= site_url('analyst/edit/' . $row->loan_id) ?>">
+                        <form method="POST" action="<?= site_url('analyst/edit/' . $row->financing_application_id) ?>">
                             <div class="modal-body">
                                 <div>
                                     <label class="form-label">Rating Kelayakan</label>
                                     <input type="number" class="form-control" name="rate" required>
                                 </div>
                                 <div class="form-text mb-3">
-                                    <p>1-25 Tolak | 25-50 Dibawah rata-rata | 65-100 Rekomendasi</p>
+                                    <p>1-25 Tolak | 25-65 Dibawah rata-rata | 65-100 Rekomendasi</p>
                                 </div>
 
                                 <div class="mb-3">

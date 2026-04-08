@@ -9,22 +9,35 @@ class Approval extends CI_Controller
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group('manager')) {
             redirect('auth/login');
         }
-        $this->load->model('/loan_model');
+        $this->load->model('/financing_application_model');
     }
 
     public function index()
     {
         $data['page'] = 'approval';
-        $data['verified_loan'] = $this->loan_model->get_by_status('verified');
-        $data['recommended_loan'] = $this->loan_model->get_by_status('recommended');
-        $data['under_review_loan'] = $this->loan_model->get_by_status('under_review');
+        $data['recommended_financing_applications'] = $this->financing_application_model->get_by_status('recommended');
+        $data['under_review_financing_applications'] = $this->financing_application_model->get_by_status('under_review');
 
         $this->load->view('manager/manager_view', $data);
     }
 
-    public function edit($loan_id)
+    public function edit($financing_application_id, $status)
     {
-        $this->loan_model->update($loan_id, ['status' => 'approved']);
+        if ($status == 'approved') {
+
+            $data = [
+                'status' => $status,
+                'rejected_reason' => null,
+                'approved_at' => date('Y-m-d'),
+            ];
+        } else {
+            $data = [
+                'status' => $status,
+                'rejected_reason' => $this->input->post('rejected_reason'),
+                'approved_at' => null,
+            ];
+        }
+        $this->financing_application_model->update($financing_application_id, $data);
         redirect('approval');
     }
 

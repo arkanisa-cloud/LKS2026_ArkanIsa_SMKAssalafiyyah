@@ -10,19 +10,19 @@ class Dashboard_umkm extends CI_Controller
             redirect('auth/login');
         }
         $this->load->model('dashboard/dashboard_umkm_model');
-        $this->load->model('/umkm_profile_model');
+        $this->load->model('/business_verification_model');
     }
 
     public function index()
     {
         $data['page'] = 'dashboard_umkm';
         $user_id = $this->ion_auth->user()->row()->id;
-        $data['profile'] = $this->umkm_profile_model->get_by_user_id($user_id);
+        $data['profile'] = $this->business_verification_model->get_by_user_id($user_id);
 
         if ($data['profile']) {
             $this->load->view('dashboard/dashboard_umkm_view', $data);
         } else {
-            $this->load->view('umkm/umkm_form', $data);
+            $this->load->view('business_verification/business_verification_form', $data);
         }
     }
 

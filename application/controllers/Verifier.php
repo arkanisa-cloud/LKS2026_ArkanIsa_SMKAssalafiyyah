@@ -9,20 +9,39 @@ class Verifier extends CI_Controller
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group('verifier')) {
             redirect('auth/login');
         }
-        $this->load->model('/loan_model');
+        $this->load->model('business_verification_model');
     }
 
     public function index()
     {
         $data['page'] = 'verifier';
-        $data['submitted_loan'] = $this->loan_model->get_by_status('submitted');
+        $data['bussiness_submitted'] = $this->business_verification_model->get_all_submitted();
         $this->load->view('verifier/verifier_view', $data);
     }
 
-    public function edit($loan_id)
+    public function edit($business_verification_id, $status)
     {
-        $this->loan_model->update($loan_id, ['status' => 'verified']);
+
+        if ($status == 'verified') {
+
+            $data = [
+                'status' => $status,
+                'rejected_reason' => null,
+                'verified_by' => $this->ion_auth->user()->row()->id,
+                'verified_at' => date('Y-m-d'),
+            ];
+        } else {
+            $data = [
+                'status' => $status,
+                'rejected_reason' => $this->input->post('rejected_reason'),
+                'verified_by' => null,
+                'verified_at' => null,
+
+            ];
+        }
+        $this->business_verification_model->update($business_verification_id, $data);
         redirect('verifier');
     }
+
 
 }

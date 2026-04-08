@@ -9,24 +9,23 @@ class Analyst extends CI_Controller
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->in_group('analyst')) {
             redirect('auth/login');
         }
-        $this->load->model('/loan_model');
+        $this->load->model('/financing_application_model');
     }
 
     public function index()
     {
         $data['page'] = 'analyst';
-        $data['submitted_loan'] = $this->loan_model->get_by_status('verified');
+        $data['submitted_financing_applications'] = $this->financing_application_model->get_by_status('submitted');
         $this->load->view('analyst/analyst_view', $data);
     }
 
-    public function edit($loan_id)
+    public function edit($financing_application_id)
     {
         $rate = $this->input->post('rate');
 
-
         if ($rate <= 25) {
-            $status = 'rejected';
-        } elseif ($rate <= 65) {
+            $status = 'rejected_by_analyst';
+        } elseif ($rate < 65) {
             $status = 'under_review';
         } else {
             $status = 'recommended';
@@ -39,7 +38,7 @@ class Analyst extends CI_Controller
             'note' => $this->input->post('note'),
         ];
 
-        $this->loan_model->update($loan_id, $data);
+        $this->financing_application_model->update($financing_application_id, $data);
         redirect('analyst');
     }
 

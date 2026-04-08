@@ -6,9 +6,6 @@
             <div class="col-md-6 text-center text-md-start">
                 <span class="text-muted">&copy; <?= date('Y') ?> <strong>LKS 2026</strong>. LKS Web Tech DIY.</span>
             </div>
-            <div class="col-md-6 text-center text-md-end">
-                <span class="badge bg-secondary">Versi 1.0</span>
-            </div>
         </div>
     </div>
 </footer>

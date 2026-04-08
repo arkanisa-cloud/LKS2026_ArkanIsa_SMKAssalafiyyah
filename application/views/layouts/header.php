@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UMKM Kita - Title</title>
+    <title>Digital UMKM</title>
     <link
         href="<?= base_url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap') ?>"
         rel="stylesheet">
@@ -40,13 +40,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= ($page == 'umkm') ? 'active' : '' ?>"
-                                href="<?= site_url('umkm_profile') ?>">
+                            <a class="nav-link <?= ($page == 'business_verification') ? 'active' : '' ?>"
+                                href="<?= site_url('business_verification') ?>">
                                 Profil UMKM
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= ($page == 'loan') ? 'active' : '' ?>" href="<?= site_url('loan') ?>">
+                            <a class="nav-link <?= ($page == 'financing_application') ? 'active' : '' ?>"
+                                href="<?= site_url('financing_application') ?>">
                                 Pinjaman
                             </a>
                         </li>

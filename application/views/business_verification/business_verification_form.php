@@ -14,16 +14,11 @@ $this->load->view('layouts/header');
 
                 <div class="card-body">
 
-                    <form action="<?= site_url('umkm_profile/save') ?>" method="POST">
+                    <form action="<?= site_url('business_verification/save') ?>" method="POST">
                         <div class="mb-3 mt-3">
                             <label class="form-label">Nama Usaha</label>
                             <input type="text" class="form-control" name="name"
                                 value="<?= isset($profile) ? htmlspecialchars($profile->name) : '' ?>" required>
-                        </div>
-                        <div>
-                            <label class="form-label">Alamat</label>
-                            <input type="text" class="form-control" name="address"
-                                value="<?= isset($profile) ? htmlspecialchars($profile->address) : '' ?>" required>
                         </div>
 
                         <div class="mb-3">
@@ -53,6 +48,7 @@ $this->load->view('layouts/header');
                             <input type="date" class="form-control" name="long_time"
                                 value="<?= isset($profile) ? htmlspecialchars($profile->long_time) : '' ?>" required>
                         </div>
+
 
                         <button type="submit" class="btn btn-primary w-100">Submit</button>
                     </form>

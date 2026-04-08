@@ -23,13 +23,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (empty($verified_loan) && empty($recommended_loan) && empty($under_review_loan)): ?>
+                        <?php if (empty($recommended_financing_applications) && empty($under_review_financing_applications)): ?>
                             <tr>
-                                <td colspan="8" class="text-center">Data masih kosong.</td>
+                                <td colspan="9" class="text-center">Data masih kosong.</td>
                             </tr>
                         <?php else: ?>
                             <?php $no = 1;
-                            foreach (array_merge($verified_loan, $recommended_loan, $under_review_loan) as $row): ?>
+                            foreach (array_merge($recommended_financing_applications, $under_review_financing_applications) as $row): ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $row->name ?></td>
@@ -41,16 +41,16 @@
                                     <td>
                                         <?php
                                         if ($row->status === 'under_review') {
-                                            echo '<span class="badge bg-secondary">Dalam Peninjauan</span>';
+                                            echo '<span class="badge bg-secondary">Dibawah Rata-rata</span>';
                                         } elseif ($row->status === 'recommended') {
                                             echo '<span class="badge bg-info">Direkomendasikan</span>';
                                         }
                                         ?>
                                     </td>
                                     <td>
-                                        <a href="<?= site_url('verifer/edit/' . $row->loan_id . '/rejected') ?>"
-                                            class="btn btn-sm btn-primary">Tolak</a>
-                                        <a href="<?= site_url('verifer/edit/' . $row->loan_id . '/approved') ?>"
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalManager<?= $row->financing_application_id ?>">Tolak</button>
+                                        <a href="<?= site_url('approval/edit/' . $row->financing_application_id . '/approved') ?>"
                                             class="btn btn-sm btn-primary">Terima</a>
                                     </td>
                                 </tr>
@@ -60,6 +60,34 @@
                 </table>
             </div>
         </div>
+
+        <?php foreach (array_merge($recommended_financing_applications, $under_review_financing_applications) as $row): ?>
+            <div id="modalManager<?= $row->financing_application_id ?>" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Alasan Penolakan Peminjaman
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="POST"
+                            action="<?= site_url('approval/edit/' . $row->financing_application_id . '/rejected_by_manager') ?>">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="floatingTextarea">Alasan Penolakan</label>
+                                    <textarea class="form-control" name="rejected_reason"
+                                        placeholder="Tuliskan alasan disini!" required></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger">Tolak</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
 
